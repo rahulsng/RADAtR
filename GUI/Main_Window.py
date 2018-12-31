@@ -2,7 +2,7 @@
     author: Anchal Aithani
     created: 30th Dec, 18
 
-    last edit: 31st Dec, 18
+    last edit: 1st Dec, 19
     author: Dev Vrat Singh
 """
 
@@ -24,7 +24,7 @@ class MainWindow(QMainWindow):
     # function which creates all interface
     def drawMenu(self):
         # main window properties
-        self.setGeometry(80, 60, 800, 600)
+        self.setFixedSize(1280, 720)
         self.setWindowTitle('Main Window')
 
         # creating Main Menu
@@ -53,16 +53,34 @@ class MainWindow(QMainWindow):
         aboutTab.addAction(aboutTab_team)
 
     def drawFrames(self):
-        """h = QHBoxLayout(central_widget)
+        central_widget = QWidget(self)
+        central_widget.setGeometry(0, 25, 1260, 710)
 
-        frame1 = QFrame(central_widget)
-        frame1.setStyleSheet('border: 1px solid black')
-        frame2 = QFrame(central_widget)
+        # StyledPanel is used to create a rectangular panel
+        nav = QFrame()
+        nav.setFrameShape(QFrame.StyledPanel)
+        nav.setMinimumWidth(200)
+        nav.setMaximumWidth(400)
+        nav.setStyleSheet('background-color: rgba(0, 0, 0, 0.5)')
 
-        h.addWidget(frame1)
-        h.addWidget(frame2)
+        content_area = QWidget(central_widget)
+        content_area.setFixedHeight(600)
 
-        central_widget.setLayout(h)"""
+        bottom = QFrame()
+        bottom.setFrameShape(QFrame.StyledPanel)
+        bottom.setStyleSheet('border: 1px solid white')
+        # bottom.
+
+        # adds the navigation panel and main frame in Splitter1
+        Splitter1 = QSplitter(Qt.Horizontal)
+        Splitter1.addWidget(nav)
+        Splitter1.addWidget(content_area)
+        Splitter1.setSizes([80, 220])
+
+        # creating a vertical layout for splitter1 and info panel
+        v_box = QVBoxLayout(central_widget)
+        v_box.addWidget(Splitter1)
+        v_box.addWidget(bottom)
 
 
 def main():
