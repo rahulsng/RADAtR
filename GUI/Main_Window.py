@@ -1,50 +1,75 @@
+"""
+    author: Anchal Aithani
+    created: 30th Dec, 18
+
+    last edit: 31st Dec, 18
+    author: Dev Vrat Singh
+"""
+
 import sys
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 
 
-class MainWindow(QWidget):
+class MainWindow(QMainWindow):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.drawMenu()       # creates Menu in the window
+        self.drawFrames()
 
-    def __init__(self):
-        super(MainWindow, self).__init__()
-        self.WidgetsUsed()
+    # dummy function
+    def someAction(self):
+        pass
 
-    def WidgetsUsed(self):
-        # creating a horizontal layout for navigation panel, main frame and info panel
-        Hbox = QHBoxLayout(self)
-
-        # StyledPanel is used to create a rectangular panel
-        Topleft = QFrame()
-        Topleft.setFrameShape(QFrame.StyledPanel)
-        bottom = QFrame()
-        bottom.setFrameShape(QFrame.StyledPanel)
-
-        # adds the navigation panel and main frame in Splitter1
-        Splitter1 = QSplitter(Qt.Horizontal)
-        Textedit = QTextEdit()
-        Splitter1.addWidget(Topleft)
-        Splitter1.addWidget(Textedit)
-        Splitter1.setSizes([100, 200])
-
-        # adding Spitter1 and the info panel int the Splitter2
-        Splitter2 = QSplitter(Qt.Vertical)
-        Splitter2.addWidget(Splitter1)
-        Splitter2.addWidget(bottom)
-        Splitter2.setSizes([6, 8])
-        # Splitter2.setEnabled(False)
-
-        Hbox.addWidget(Splitter2)
-
-        self.setGeometry(200, 200, 1000, 1000)
+    # function which creates all interface
+    def drawMenu(self):
+        # main window properties
+        self.setGeometry(80, 60, 800, 600)
         self.setWindowTitle('Main Window')
-        self.show()
+
+        # creating Main Menu
+        menu = self.menuBar()
+
+        # adding Menu Tabs
+        applicatonTab = menu.addMenu('Application')
+        aboutTab = menu.addMenu('About')
+        helpTab = menu.addMenu('Help')
+
+        # ------------ Sub-menus of each Tab ---------------
+        # 'Exit' (of Application) sub-menu and its properties
+        applicatonTab_exit = QAction('Exit', self)
+        applicatonTab_exit.setShortcut('Ctrl+Q')
+        applicatonTab_exit.triggered.connect(qApp.exit)         # exit the application
+        applicatonTab.addAction(applicatonTab_exit)             # adding to 'Application' Tab
+
+        # 'Software' (Of About) sub-menu and its properties
+        aboutTab_software = QAction('Software', self)
+        aboutTab_software.triggered.connect(self.someAction)
+        aboutTab.addAction(aboutTab_software)
+
+        # 'Team' (Of About) sub-menu and its properties
+        aboutTab_team = QAction('Team', self)
+        aboutTab_team.triggered.connect(self.someAction)
+        aboutTab.addAction(aboutTab_team)
+
+    def drawFrames(self):
+        """h = QHBoxLayout(central_widget)
+
+        frame1 = QFrame(central_widget)
+        frame1.setStyleSheet('border: 1px solid black')
+        frame2 = QFrame(central_widget)
+
+        h.addWidget(frame1)
+        h.addWidget(frame2)
+
+        central_widget.setLayout(h)"""
 
 
 def main():
-    QApplicationObj = QApplication(sys.argv)
-    MainWindowObj = MainWindow()
-    sys.exit(QApplicationObj.exec_())
+    application = QApplication(sys.argv)
+    mainWindowObj = MainWindow()
+    mainWindowObj.show()
+    sys.exit(application.exec_())
 
 
 if __name__ == '__main__':
