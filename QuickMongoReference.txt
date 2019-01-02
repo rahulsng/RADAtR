@@ -9,7 +9,11 @@ How to connect to MongoDB (local) server (using shell)?
 =================== Database ======================
 How to see pre-existing DBs?
     execute 'show dbs'
+<<<<<<< HEAD
     *mind the 's' in lower-case 'd' in dbs.
+=======
+    *mind the 's' in dbs.
+>>>>>>> 6364600c558abcdce345100fefd0c60c6d046122
 
 How to check which DB is currently in use?
     execute 'db'
@@ -58,4 +62,4 @@ How to insert a single data/record in a collection?
 How to insert multiple records in a Collection?
     In 3 ways, using insert(), insertMany() or manually(not preferred)
     db.<nameOfTheCollection>.insert([<fileName1>, <fileName2>, <fileName3>]) or
-    db.<nameOfTheCollection>.insertMany([<fileName>), <fileName2>, <fileName3>])
+    db.<nameOfTheCollection>.insertMany([<fileName>, <fileName2>, <fileName3>])
