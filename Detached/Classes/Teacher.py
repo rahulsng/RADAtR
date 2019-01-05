@@ -8,12 +8,12 @@ class Teacher:
         self.department = dept
         self.rank = rank
         self.school = school
-        self.uID = uid
+        self.uID = uid  # String
         self.maxLectures = max_lec  # per week
         self.minLectures = min_lec  # per week
         self.currentLectures = current_lec
-        self.lectureSlots = [[False]*Var.maximumSlots]*Var.totalWorkingDays
-        self.semestersTeaching = []  # can be a number, Courses may be different for a teacher or a list of strings
+        self.lectureSlots = [[False] * Var.maximumSlots] * Var.totalWorkingDays
+        self.semestersTeaching = []  # a number
         self.subjects = []
 
     # function to fetch attributes and their values
@@ -40,11 +40,20 @@ class Teacher:
         else:
             self.maxLectures = max_lectures
 
+    def update_info(self):
+        pass
 
 # Here first argument "Teacher" (the class name) is passed to verify the given teacher's credentials
 # Also so that the first argument is of Teacher's instance
-def check_teacher_availability(Teacher):
-        if Teacher.currentLectures < Teacher.maxLectures:
-            return True
-        else:
-            return False
+def check_teacher_availability(Teacher_uID):
+    details = get_details(Teacher_uID)
+    if details.currentLectures < details.maxLectures:
+        return True
+    else:
+        return False
+
+
+# Function to get details of the teacher for a given uID
+def get_details(uID):
+    """Database query to fetch details of teacher for a given uID """
+    return
