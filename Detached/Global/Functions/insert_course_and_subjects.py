@@ -1,10 +1,9 @@
 from pymongo import MongoClient
+from Detached.Global.Variables.varDB import *
 """
 Use the following database details to input the data to your database and its collection
 You can change your database name and collection_name.
 """
-db_used = "University"
-collection = "courseWiseSubjects"
 
 """This function should be called whenever a full new course is to be inserted into courseWiseSubjects."""
 
@@ -23,10 +22,10 @@ def insert_course_and_subjects():
 
     print(document)
 
-    client = MongoClient('localhost', 27017)
+    client = MongoClient(localhost)
     print("Connected")
     db = client.University
-    print(f"DB Used {db_used}")
+    print(f"DB Used {database}")
     db[collection].insert(document)
     print("Inserted")
     db[collection].find()
