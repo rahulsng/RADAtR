@@ -1,17 +1,17 @@
 from pymongo import MongoClient
 from Detached.Global.Variables.varDB import *
-"""
-Use the following database details to input the data to your database and its collection
-You can change your database name and collection_name.
-"""
 
-"""This function should be called whenever a full new course is to be inserted into courseWiseSubjects."""
+"""This function should be called for creating a subject list for a new course."""
 
 
 def insert_course_and_subjects():
     course_name = input("Type the course name")
     total_semesters = int(input("Provide total semesters"))
+
+    # creating an empty data structure for storing subjects
     document = {course_name: [{str(sem_number): []} for sem_number in range(1, total_semesters + 1)]}
+
+    # adding subjects in required empty lists
     for i in range(total_semesters):
         while True:
             subject = input(f"Add Subject for semester {i + 1}")
@@ -20,16 +20,11 @@ def insert_course_and_subjects():
             if add_more == "2":
                 break
 
-    print(document)
-
+    # insertion of the data in the database
     client = MongoClient(localhost)
-    print("Connected")
     db = client.University
-    print(f"DB Used {database}")
     db[collection].insert(document)
-    print("Inserted")
     db[collection].find()
-    print("printed")
 
 
 def subject_removal():
