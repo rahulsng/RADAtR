@@ -31,9 +31,17 @@ def insert_course_and_subjects():
 def subject_removal():
     """Define a function to remove a subject/s from given course
        of a particular semester"""
+    # include a function to display list of subjects from which to remove it.
 
 
 def display():
+    pass
+
+
+def update_subject():
+    # function used to replace or update existing subjects.
+    # must take 4 arguments: (Course_name, sem_no, subject_replacing, subject_to_replace_with)
+    # must display the list of subjects from respective semester.
     pass
 
 
