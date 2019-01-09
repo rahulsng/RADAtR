@@ -1,7 +1,11 @@
+import json
 from pymongo import MongoClient
 from Detached.Global.Variables.varDB import *
 
 """This function should be called for creating a subject list for a new course."""
+
+client = MongoClient(localhost)
+db = client[database]
 
 
 def insert_course_and_subjects():
@@ -20,9 +24,6 @@ def insert_course_and_subjects():
             if add_more == "2":
                 break
 
-    # insertion of the data in the database
-    client = MongoClient(localhost)
-    db = client.University
     db[collection].insert(document)
     db[collection].find()
 
@@ -32,5 +33,19 @@ def subject_removal():
        of a particular semester"""
 
 
+def display():
+    pass
+
+
+def insert_all():
+    # give absolute address of the records.json file to load at once
+    with open('/home/atrivedi/RADAtR/Detached/Database/records.json') as f:
+        file_data = json.load(f)
+
+    db[collection].insert(file_data)
+    print(db[collection].find())
+
+
 # Function Called For Testing
-insert_course_and_subjects()
+
+insert_all()
