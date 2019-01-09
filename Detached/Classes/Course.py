@@ -12,7 +12,7 @@ class Course:
         self.subjects = []
         self.totalSubjects = len(self.subjects)  # so that if subject is added or removed, no need to update explicitly
         self.startingHour = start_time  # 24 Hrs.
-        self.teachers = []  # what is to appended here ? Full Teacher() instance or only teacher's name
+        self.teachers = []  # append teacher's uID
 
     # displaying all attributes of 'Course' object
     def getinfo(self):
@@ -25,14 +25,15 @@ class Course:
         for subject in self.subjects:
             print(subject)
         print(f"Teachers:")
-        for teacher in self.teachers:   # if object of Teacher class is appended above in teachers then this must change
+        for teacher in self.teachers:
             print(teacher)
         print()
 
     def update_info(self):
         self.getinfo()
         print("What is the attribute you want to update ?")
-        attribute = int(input(f"1.Name\n2.Course Code\n3.Start Timing\n4.No. of Semesters\n Any other key to exit"))
+        attribute = int(input(f"1.Name\n2.Course Code\n3.Start Timing\n4.No. of Semesters"
+                              f"\n Any other key to exit"))
         if attribute == 1:
             self.name = input("Enter New Course Name")
         elif attribute == 2:
@@ -48,21 +49,23 @@ class Course:
     def add_subject(self, subjects_from_subject_data_structure):
         self.subjects.append(subjects_from_subject_data_structure)
 
-    # Almost Done
-    def add_teacher(self, teacher_type_object):
-        if check_teacher_availability(teacher_type_object):
-            self.teachers.append(teacher_type_object.name)
+    # Done
+    def add_teacher(self, teacher_uid):
+        if check_teacher_availability(teacher_uid):
+            """Write a query to get a teacher by given uID from DataBase"""
+            self.teachers.append(teacher_uid.uID)
             print("Added Successfully")
         else:
             print("Teacher is running out of time hence, can't be added")
 
     # its working depends on adding of the "Teacher"'s instance or just name in above self.teacher list
-    def remove_teacher(self, teacher_name):
-        if teacher_name in self.teachers:
-            self.teachers.remove(teacher_name)
+    def remove_teacher(self, uid):
+        if uid in self.teachers:
+            self.teachers.remove(uid)
             print("Teacher removed ")
 
 
+# Test:
 obj = Teacher("Manoj", "DCS", 3, "SIST", "mca-mk", 17, 13, 15)
 obj.getinfo()
 print(check_teacher_availability(obj))
@@ -70,5 +73,5 @@ course1 = Course("MCA", "mca", 2, 2, 10)
 course1.getinfo()
 course1.add_teacher(obj)
 course1.getinfo()
-course1.remove_teacher("Manoj")
+course1.remove_teacher("mca-mk")
 course1.getinfo()
