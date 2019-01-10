@@ -8,24 +8,25 @@ class AddingFunctionality(QWidget):
         self.MainWindow()
 
     def MainWindow(self):
+        self.setFixedSize(600, 400)
         self.setGeometry(300, 90, 600, 400)
         self.setWindowTitle(" Add Subject")
 
         LabelMainWindow = QLabel("PLEASE  ENTER  THE  DETAILS  OF  THE  SUBJECT  YOU  WANT  TO  ADD", self)
         LabelMainWindow.move(85, 2)
-        LabelMainWindow.setStyleSheet("font-weight: bold; font-family: Times New Roman ; color: black ; font-size: 10pt")
+        LabelMainWindow.setStyleSheet("font-weight: bold;font-family: Times New Roman ; color: black ; font-size: 10pt")
         DisclaimLabel = QLabel("*all the fields are mandatory", self)
         DisclaimLabel.move(85, 380)
         DisclaimLabel.setStyleSheet("font-weight : bold; font- family :Times New Roman ;color : red")
 
-        OkPushButton = QPushButton("OKAY",self)
-        OkPushButton.move(100,300)
+        OkPushButton = QPushButton("OKAY", self)
+        OkPushButton.move(200, 300)
 
-        CancelPushButton = QPushButton("CANCEL",self)
-        CancelPushButton.move(250,300)
+        CancelPushButton = QPushButton("CANCEL", self)
+        CancelPushButton.move(300, 300)
 
-        DisplayPushButton = QPushButton("DISPLAY",self)
-        DisplayPushButton.move(380,300)
+        # DisplayPushButton = QPushButton("DISPLAY", self)
+        # DisplayPushButton.move(380, 300)
 
         self.CourseName()
         self.Semester()
@@ -38,6 +39,8 @@ class AddingFunctionality(QWidget):
         ComboCourseName = QComboBox(self)
         ComboCourseName.move(320, 70)
         ComboCourseName.addItems(["MCA", "MSC - IT", "MA - HINDI", "MSC-MATHS"])
+        ComboCourseName.setFixedHeight(30)
+        ComboCourseName.setFixedWidth(200)
         # ComboCourseName.styleSheet("font-weight : bold; font- family :Times New Roman ;color : red")
 
     def Semester(self):
@@ -46,7 +49,7 @@ class AddingFunctionality(QWidget):
         LabelSemester.setStyleSheet("font-family:italics")
         ComboSemester = QComboBox(self)
         ComboSemester.move(320, 130)
-        ComboSemester.addItems(["1", "2", "3", "4", "5", "6"])
+        ComboSemester.addItems(["1", "2", "3", "4", "5", "6", "7", "8"])
 
     def Subjects(self):
         LabelSubjects = QLabel("Subjects", self)
@@ -54,7 +57,7 @@ class AddingFunctionality(QWidget):
         LabelSubjects.setStyleSheet("font-family:italics")
         LabelTextEdit = QTextEdit(self)
         LabelTextEdit.setFixedHeight(30)
-        LabelTextEdit.setFixedWidth(110)
+        LabelTextEdit.setFixedWidth(200)
         LabelTextEdit.move(320, 190)
         LabelTextEdit.setStyleSheet("font-weight : bold; font- family :Times New Roman ;color : black")
 
