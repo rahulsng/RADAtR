@@ -7,7 +7,10 @@
 """
 
 import sys
+from functools import partial
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QIcon       # for importing icon
+from PyQt5.QtCore import QSize      # for icon size
 
 
 class MainWindow(QMainWindow):
@@ -17,6 +20,7 @@ class MainWindow(QMainWindow):
         self.draw_menu()
         self.draw_statusbar()
         self.draw_main_container()
+        # self.timetablebutton = None
 
     def draw_main_window(self):
         # main window properties
@@ -41,13 +45,10 @@ class MainWindow(QMainWindow):
         #                         background-color: rgb(45, 57, 63);')
         self.draw_rest(container)
 
+    # ############## actions performed by different buttons #############
+
     def draw_rest(self, base_widget):
         layout = QHBoxLayout(base_widget)
-
-        # left most (vertical) toggle bar
-        left_bar = QWidget(base_widget)
-        left_bar.setMaximumWidth(30)                # static value, need not to be changed
-        # left_bar.setStyleSheet('border-right: 1px solid #4B4B4B;')
 
         # navigation
         nav = QTreeWidget(base_widget)
@@ -55,6 +56,27 @@ class MainWindow(QMainWindow):
 
         # ########## navigation options must be defined below #############
         nav.setHeaderLabel('Time-Table')
+
+        # left most (vertical) toggle bar
+        left_bar = QWidget(base_widget)
+        left_bar.setMaximumWidth(50)                # static value, need not to be changed
+
+        # layout for left bar
+        leftBarLayout = QVBoxLayout(left_bar)
+
+        # buttons on the left bar
+        timetablebutton = QPushButton('', left_bar)
+        timetablebutton.setIcon(QIcon('GUI/Icons/timetable.png'))
+        timetablebutton.setIconSize(QSize(40, 40))
+        timetablebutton.clicked.connect(partial(self.toggle_nav, timetablebutton, nav))
+
+        # stacking all buttons in left bar
+        leftBarLayout.addStretch(1)
+        leftBarLayout.addWidget(timetablebutton)
+        leftBarLayout.addStretch(20)
+        leftBarLayout.setContentsMargins(0, 0, 0, 0)
+        leftBarLayout.setSpacing(0)
+        left_bar.setLayout(leftBarLayout)
 
         # right sided container for other dynamic widgets
         sub_container = QWidget(base_widget)
@@ -67,6 +89,13 @@ class MainWindow(QMainWindow):
         layout.setSpacing(0)
         # layout.addStretch(2)
         base_widget.setLayout(layout)
+
+    def toggle_nav(self, button, widgettotoggle):
+        status = button.isHidden()
+        if status is False:
+            widgettotoggle.hide()
+        else:
+            widgettotoggle.show()
 
 
 def main():
