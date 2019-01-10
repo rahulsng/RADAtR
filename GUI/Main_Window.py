@@ -2,91 +2,78 @@
     author: Anchal Aithani
     created: 30th Dec, 18
 
-    last edit: 1st Dec, 19
+    last edit: 10th Jan, 19
     author: Dev Vrat Singh
 """
 
 import sys
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
 
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.drawMenu()       # creates Menu in the window
-        self.drawFrames()
+        self.draw_main_window()         # creates Menu in the window
+        self.draw_menu()
+        self.draw_statusbar()
+        self.draw_main_container()
 
-    # dummy function
-    def someAction(self):
-        pass
-
-    # function which creates all interface
-    def drawMenu(self):
+    def draw_main_window(self):
         # main window properties
-        self.setFixedSize(1280, 720)
+        self.setFixedSize(800, 600)
         self.setWindowTitle('Main Window')
 
-        # creating Main Menu
-        menu = self.menuBar()
+    def draw_menu(self):
+        menubar = QMenuBar(self)
 
         # adding Menu Tabs
-        applicatonTab = menu.addMenu('Application')
-        aboutTab = menu.addMenu('About')
-        helpTab = menu.addMenu('Help')
+        applicatonTab = menubar.addMenu('Application')
+        aboutTab = menubar.addMenu('About')
+        helpTab = menubar.addMenu('Help')
 
-        # ------------ Sub-menus of each Tab ---------------
-        # 'Exit' (of Application) sub-menu and its properties
-        applicatonTab_exit = QAction('Exit', self)
-        applicatonTab_exit.setShortcut('Ctrl+Q')
-        applicatonTab_exit.triggered.connect(qApp.exit)         # exit the application
-        applicatonTab.addAction(applicatonTab_exit)             # adding to 'Application' Tab
+    def draw_statusbar(self):
+        self.statusBar().showMessage('This is a status bar.')
 
-        # 'Software' (Of About) sub-menu and its properties
-        aboutTab_software = QAction('Software', self)
-        aboutTab_software.triggered.connect(self.someAction)
-        aboutTab.addAction(aboutTab_software)
+    def draw_main_container(self):
+        container = QWidget(self)
+        container.setGeometry(0, 21, 800, 558)      # 21x2 px is taken by menu(top) and status bar(bottom)
+        # container.setStyleSheet('border:0px solid black;\
+        #                         background-color: rgb(45, 57, 63);')
+        self.draw_rest(container)
 
-        # 'Team' (Of About) sub-menu and its properties
-        aboutTab_team = QAction('Team', self)
-        aboutTab_team.triggered.connect(self.someAction)
-        aboutTab.addAction(aboutTab_team)
+    def draw_rest(self, base_widget):
+        layout = QHBoxLayout(base_widget)
 
-    def drawFrames(self):
-        central_widget = QWidget(self)
-        central_widget.setGeometry(0, 25, 1260, 710)
+        # left most (vertical) toggle bar
+        left_bar = QWidget(base_widget)
+        left_bar.setMaximumWidth(30)                # static value, need not to be changed
+        # left_bar.setStyleSheet('border-right: 1px solid #4B4B4B;')
 
-        # StyledPanel is used to create a rectangular panel
-        nav = QFrame()
-        nav.setFrameShape(QFrame.StyledPanel)
-        nav.setMinimumWidth(200)
-        nav.setMaximumWidth(400)
-        nav.setStyleSheet('background-color: rgba(0, 0, 0, 0.5)')
+        # navigation
+        nav = QTreeWidget(base_widget)
+        nav.setMaximumWidth(200)                    # static value to be changed with main window size
 
-        content_area = QWidget(central_widget)
-        content_area.setFixedHeight(600)
+        # ########## navigation options must be defined below #############
+        nav.setHeaderLabel('Time-Table')
 
-        bottom = QFrame()
-        bottom.setFrameShape(QFrame.StyledPanel)
-        bottom.setStyleSheet('border: 1px solid white')
-        # bottom.
+        # right sided container for other dynamic widgets
+        sub_container = QWidget(base_widget)
+        # sub_container.setStyleSheet('background-color: #2B2B2B')
 
-        # adds the navigation panel and main frame in Splitter1
-        Splitter1 = QSplitter(Qt.Horizontal)
-        Splitter1.addWidget(nav)
-        Splitter1.addWidget(content_area)
-        Splitter1.setSizes([80, 220])
-
-        # creating a vertical layout for splitter1 and info panel
-        v_box = QVBoxLayout(central_widget)
-        v_box.addWidget(Splitter1)
-        v_box.addWidget(bottom)
+        layout.addWidget(left_bar)
+        layout.addWidget(nav)
+        layout.addWidget(sub_container)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
+        # layout.addStretch(2)
+        base_widget.setLayout(layout)
 
 
 def main():
     application = QApplication(sys.argv)
-    mainWindowObj = MainWindow()
-    mainWindowObj.show()
+    application.setStyle('Fusion')
+    main_window_obj = MainWindow()
+    main_window_obj.show()
     sys.exit(application.exec_())
 
 
