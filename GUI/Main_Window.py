@@ -8,6 +8,7 @@
 
 import sys
 from GUI.ModulePanel import *
+from GUI.NavigationPanel import *
 
 
 class MainWindow(QMainWindow):
@@ -32,30 +33,22 @@ class MainWindow(QMainWindow):
         # central widget (main parent widget)
         self.container = QWidget(self)
         self.container.setGeometry(0, 21, 800, 558)      # 21x2 px is taken by menu(top) and status bar(bottom)
-        # container.setStyleSheet('border:0px solid black;\
-        #                         background-color: rgb(45, 57, 63);')
 
-        # layout for main widget (container)
+        # layout for central widget (container)
         self.containerLayout = QHBoxLayout(self.container)
 
         # left most (vertical) toggle bar
-        self.someVar = LeftModulePanel(self.container)
-        self.someVar.timeTableButton.clicked.connect(self.toggle_nav)
-
-        # navigation properties
-        self.timeTableNav = QTreeWidget()
-        self.timeTableNav.setMaximumWidth(200)                    # static value to be changed with main window size
-
-        # ########## navigation options must be defined below #############
-        self.timeTableNav.setHeaderLabel('Time-Table')
+        self.leftBar = LeftModulePanel(self.container)
+        self.leftBar.timeTableButton.clicked.connect(self.toggle_nav)
 
         # right sided container for other dynamic widgets
         self.sub_container = QWidget(self.container)
-        # sub_container.setStyleSheet('background-color: #2B2B2B')
+
+        self.navBar = NavigationPanel(self.container)
 
         # stacking all widgets on the main widget (ie container)
-        self.containerLayout.addWidget(self.someVar.left_bar)
-        self.containerLayout.addWidget(self.timeTableNav)
+        self.containerLayout.addWidget(self.leftBar.modulePanel)
+        self.containerLayout.addWidget(self.navBar.navPanel)
         self.containerLayout.addWidget(self.sub_container)
         self.containerLayout.setContentsMargins(0, 0, 0, 0)
         self.containerLayout.setSpacing(0)
@@ -63,11 +56,11 @@ class MainWindow(QMainWindow):
 
     # function to show/hide "Time-Table" (navigation) bar
     def toggle_nav(self):
-        status = self.timeTableNav.isHidden()
+        status = self.navBar.navPanel.isHidden()
         if status is False:
-            self.timeTableNav.hide()
+            self.navBar.navPanel.hide()
         else:
-            self.timeTableNav.show()
+            self.navBar.navPanel.show()
 
 
 def main():
