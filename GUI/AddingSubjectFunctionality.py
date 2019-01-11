@@ -63,18 +63,19 @@ class AddingFunctionality(QWidget):
         LabelTextEdit.setFixedHeight(30)
         LabelTextEdit.setFixedWidth(200)
         LabelTextEdit.move(320, x)
-        LabelTextEdit.setStyleSheet("font-weight : bold; font- family :Times New Roman ;color : black")
-        self.x = x+100
+        LabelTextEdit.setStyleSheet("font - weight : bold; font - family :Times New Roman; color : black")
+        self.x = x + 100
 
     def AdditionOfAdd(self):
         AddNew = QPushButton("+", self)
-        AddNew.move(530,195)
+        AddNew.move(530, 195)
         AddNew.setFixedHeight(20)
         AddNew.setFixedWidth(20)
         AddNew.clicked.connect(self.Test)
 
     def Test(self):
-        hello = QPushButton("hello",self)
+        hello = QPushButton("hello", self)
+
 
 def main():
     ObjQApplication = QApplication(sys.argv)
