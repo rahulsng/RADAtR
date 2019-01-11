@@ -28,9 +28,13 @@ class AddingFunctionality(QWidget):
         # DisplayPushButton = QPushButton("DISPLAY", self)
         # DisplayPushButton.move(380, 300)
 
+        global x
+        x = 190
         self.CourseName()
         self.Semester()
         self.Subjects()
+        self.AdditionOfAdd()
+        # self.Test()
 
     def CourseName(self):
         LabelCourseName = QLabel("Course Name", self)
@@ -58,9 +62,19 @@ class AddingFunctionality(QWidget):
         LabelTextEdit = QTextEdit(self)
         LabelTextEdit.setFixedHeight(30)
         LabelTextEdit.setFixedWidth(200)
-        LabelTextEdit.move(320, 190)
+        LabelTextEdit.move(320, x)
         LabelTextEdit.setStyleSheet("font-weight : bold; font- family :Times New Roman ;color : black")
+        self.x = x+100
 
+    def AdditionOfAdd(self):
+        AddNew = QPushButton("+", self)
+        AddNew.move(530,195)
+        AddNew.setFixedHeight(20)
+        AddNew.setFixedWidth(20)
+        AddNew.clicked.connect(self.Test)
+
+    def Test(self):
+        hello = QPushButton("hello",self)
 
 def main():
     ObjQApplication = QApplication(sys.argv)
