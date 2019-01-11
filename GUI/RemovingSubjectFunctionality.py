@@ -12,15 +12,15 @@ class AddingFunctionality(QWidget):
         self.setGeometry(300, 90, 600, 400)
         self.setWindowTitle(" Add Subject")
 
-        LabelMainWindow = QLabel("PLEASE  ENTER  THE  DETAILS  OF  THE  SUBJECT  YOU  WANT  TO  ADD", self)
-        LabelMainWindow.move(85, 2)
+        LabelMainWindow = QLabel("PLEASE  ENTER  THE  DETAILS  OF  THE  SUBJECT  YOU  WANT  TO  DELETE", self)
+        LabelMainWindow.move(60, 2)
         LabelMainWindow.setStyleSheet("font-weight: bold;font-family: Times New Roman ; color: black ; font-size: 10pt")
         DisclaimLabel = QLabel("*all the fields are mandatory", self)
-        DisclaimLabel.move(85, 380)
+        DisclaimLabel.move(45, 380)
         DisclaimLabel.setStyleSheet("font-weight : bold; font- family :Times New Roman ;color : red")
 
-        OkPushButton = QPushButton("OKAY", self)
-        OkPushButton.move(200, 300)
+        DeletePushButton = QPushButton("DELETE", self)
+        DeletePushButton.move(200, 300)
 
         CancelPushButton = QPushButton("CANCEL", self)
         CancelPushButton.move(300, 300)
@@ -28,13 +28,9 @@ class AddingFunctionality(QWidget):
         # DisplayPushButton = QPushButton("DISPLAY", self)
         # DisplayPushButton.move(380, 300)
 
-        global x
-        x = 190
         self.CourseName()
         self.Semester()
         self.Subjects()
-        self.AdditionOfAdd()
-        # self.Test()
 
     def CourseName(self):
         LabelCourseName = QLabel("Course Name", self)
@@ -59,22 +55,9 @@ class AddingFunctionality(QWidget):
         LabelSubjects = QLabel("Subjects", self)
         LabelSubjects.move(60, 190)
         LabelSubjects.setStyleSheet("font-family:italics")
-        LabelTextEdit = QTextEdit(self)
-        LabelTextEdit.setFixedHeight(30)
-        LabelTextEdit.setFixedWidth(200)
-        LabelTextEdit.move(320, x)
-        LabelTextEdit.setStyleSheet("font - weight : bold; font - family :Times New Roman; color : black")
-        self.x = x + 100
-
-    def AdditionOfAdd(self):
-        AddNew = QPushButton("+", self)
-        AddNew.move(530, 195)
-        AddNew.setFixedHeight(20)
-        AddNew.setFixedWidth(20)
-        AddNew.clicked.connect(self.Test)
-
-    def Test(self):
-        hello = QPushButton("hello", self)
+        CheckSubjects = QCheckBox("CBNST",self)
+        CheckSubjects.move(320, 190)
+        CheckSubjects.setStyleSheet("font-weight : bold; font- family :Times New Roman ;color : black")
 
 
 def main():
