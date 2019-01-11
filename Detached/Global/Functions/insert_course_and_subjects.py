@@ -38,11 +38,10 @@ def display():
     pass
 
 
-def update_subject():
-    # function used to replace or update existing subjects.
-    # must take 4 arguments: (Course_name, sem_no, subject_replacing, subject_to_replace_with)
-    # must display the list of subjects from respective semester.
-    pass
+def update_subject(course, sem, replacing, replaced_by):
+    course_sem = str(str(course) + "." + str(sem))
+    to_be_changed = course_sem + ".$"
+    db[collection].find_one_and_update({course_sem: replacing}, {"$set": {to_be_changed: replaced_by}})
 
 
 def insert_all():
@@ -56,4 +55,4 @@ def insert_all():
 
 # Function Called For Testing
 
-insert_all()
+update_subject("MCA", 5, "Elective Paper-3", "Parallel Computing")
