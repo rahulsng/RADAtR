@@ -7,11 +7,15 @@ class TimeTableWindow:
 
         # dependencies
         self.teachers = ["Manoj Kumar", "Narendra Kumar", "Santosh Kumar Dwivedi", "Vipin Saxena", "Deepa Raj", "Shalini Chandra"]
-        self.subjects = ["MCA-401", "MCA-402", "MCA-403", "MCA-404", "MCA-405"]
+        self.subjects = ["MCA-401: Database Management System",
+                         "MCA-402: Compiler Design",
+                         "MCA-403: Data Communication & Computer Networks",
+                         "MCA-404: Modeling and Simulation"]
+
         self.semesterList = ["1", "2", "3", "4", "5", "6"]
 
         # text widgets for the window
-        self.windowHeading = QLabel('Create Time Table')                            # window Heading Text
+        self.windowHeading = QLabel('Create Time Table')               # window Heading Text
         self.windowHeading.setStyleSheet('font-size: 16px;'
                                          'font-weight: bold;'
                                          'margin-top: 2px;'
@@ -54,8 +58,19 @@ class TimeTableWindow:
         self.rows.addWidget(QLabel('Assign the following subjects with respective lecturer'))
         self.rows.addStretch(1)
 
+        # placing teachers and subjects list
         self.subject_mappings(self.subjects, self.teachers)
-        self.rows.addStretch(10)
+        self.rows.addStretch()
+
+        self.finalButton = QHBoxLayout(self.createTimeTableWin)
+        self.generateButton = QPushButton('Generate', self.createTimeTableWin)
+        self.cancelButton = QPushButton('Cancel', self.createTimeTableWin)
+        self.finalButton.addStretch(5)
+        self.finalButton.addWidget(self.generateButton)
+        # self.finalButton.addStretch(1)
+        self.finalButton.addWidget(self.cancelButton)
+
+        self.rows.addLayout(self.finalButton)
         self.createTimeTableWin.setLayout(self.rows)
 
     def subject_mappings(self, subject_list, teacher_list):
@@ -79,3 +94,4 @@ class TimeTableWindow:
             subject_stack.append(subject)
             self.rows.addWidget(subject_stack[i])
             self.rows.addWidget(teacher_comboboxes[i])
+            self.rows.addStretch(1)
