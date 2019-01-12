@@ -7,41 +7,53 @@ class TimeTableWindow:
 
         # text widgets for the window
         self.windowHeading = QLabel('Create Time Table')                            # window Heading Text
-        self.semesterLabel = QLabel('Semester')                                     # 'Semester' Text
-        self.batchLabel = QLabel('Batch')                                           # 'Batch' Text
+        self.windowHeading.setStyleSheet('font-size: 16px;'
+                                         'font-weight: bold;'
+                                         'margin-top: 2px;'
+                                         'margin-bottom: 5px;')
+
+        self.semesterLabel = QLabel('For Semester')                                     # 'Semester' Text
+        self.batchLabel = QLabel('For Batch')                                           # 'Batch' Text
         self.timingLabel = QLabel('Batch start-timing (in 24-hours format)')        # 'Batch start-timing' Text
 
         # input fields of the window
         self.semesterField = QLineEdit()
+        self.semesterField.setFixedWidth(40)        # making input field tiny
         self.batchField = QLineEdit()
+        self.batchField.setFixedWidth(40)           # making input field tiny
         self.timingField = QLineEdit()
         self.timingField.setEchoMode(QLineEdit.Password)
 
-        # ##### layout of 'create time table' window ########
-        # showing heading of the window (middle-aligned)
-        self.layoutForHeading = QHBoxLayout(self.createTimeTableWin)
-        self.layoutForHeading.addStretch(2)                                         # for left gaps
-        self.layoutForHeading.addWidget(self.windowHeading)                         # placed in-between gaps
-        self.layoutForHeading.addStretch(3)                                         # for right gaps
+        # layout for rows
+        self.rows = QVBoxLayout(self.createTimeTableWin)
 
-        # to be placed left sided (below heading)
-        self.layoutForSemester = QFormLayout(self.createTimeTableWin)
-        self.layoutForSemester.addRow(self.semesterLabel, self.semesterField)       # pairing label and field
+        # form layout for semester fields (pair of label and field)
+        self.semRow = QFormLayout(self.createTimeTableWin)
+        self.semRow.addRow(self.semesterLabel, self.semesterField)
 
-        # to be placed right sided (below heading)
-        self.layoutForBatch = QFormLayout(self.createTimeTableWin)
-        self.layoutForBatch.addRow(self.batchLabel, self.batchField)                # pairing label and field
+        # for layout for batch fields (pair of label and field)
+        self.batchRow = QFormLayout(self.createTimeTableWin)
+        self.batchRow.addRow(self.batchLabel, self.batchField)
 
-        # putting above (left sided and right sided) widgets into a single row
-        self.secondRowWidgets = QHBoxLayout(self.createTimeTableWin)
-        self.secondRowWidgets.addLayout(self.layoutForSemester)
-        self.secondRowWidgets.addLayout(self.layoutForBatch)
+        # for layout for timing fields (pair of label and field)
+        self.timingRow = QFormLayout(self.createTimeTableWin)
+        self.timingRow.addRow(self.timingLabel, self.timingField)
 
-        # showing first and second rows (vertically)
-        self.wholeRows = QVBoxLayout(self.createTimeTableWin)
-        self.wholeRows.addStretch(1)
-        self.wholeRows.addLayout(self.layoutForHeading)                 # shows 'Heading' at the top (1st row)
-        self.wholeRows.addLayout(self.secondRowWidgets)                 # shows semester and batch fields (2nd row)
-        self.wholeRows.addStretch(5)
+        # putting main heading in the first row
+        self.firstRow = QHBoxLayout(self.createTimeTableWin)
+        self.firstRow.addStretch()
+        self.firstRow.addWidget(self.windowHeading)
+        self.firstRow.addStretch()
 
-        self.createTimeTableWin.setLayout(self.wholeRows)
+        # putting semester and batch row next to each other in 2nd row
+        self.secondRow = QHBoxLayout(self.createTimeTableWin)
+        self.secondRow.addLayout(self.semRow, 1)
+        self.secondRow.addLayout(self.batchRow, 1)
+
+        # adding layouts and widgets into rows
+        self.rows.addLayout(self.firstRow)
+        self.rows.addLayout(self.secondRow)
+        self.rows.addLayout(self.timingRow)
+        self.rows.addStretch(5)
+
+        self.createTimeTableWin.setLayout(self.rows)
