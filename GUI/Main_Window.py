@@ -1,11 +1,3 @@
-"""
-    author: Anchal Aithani
-    created: 30th Dec, 18
-
-    last edit: 10th Jan, 19
-    author: Dev Vrat Singh
-"""
-
 import sys
 from GUI.ModulePanel import *
 from GUI.NavigationPanel import *
