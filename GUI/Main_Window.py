@@ -9,6 +9,7 @@
 import sys
 from GUI.ModulePanel import *
 from GUI.NavigationPanel import *
+from GUI.CreateTimeTable import *
 
 
 class MainWindow(QMainWindow):
@@ -41,15 +42,15 @@ class MainWindow(QMainWindow):
         self.leftBar = LeftModulePanel(self.container)
         self.leftBar.timeTableButton.clicked.connect(self.toggle_nav)
 
-        # right sided container for other dynamic widgets
-        self.sub_container = QWidget(self.container)
+        # right sided dynamic widgets
+        self.someVar = TimeTableWindow(self.container)
 
         self.navBar = NavigationPanel(self.container)
 
         # stacking all widgets on the main widget (ie container)
-        self.containerLayout.addWidget(self.leftBar.modulePanel)
-        self.containerLayout.addWidget(self.navBar.navPanel)
-        self.containerLayout.addWidget(self.sub_container)
+        self.containerLayout.addWidget(self.leftBar.modulePanel, 0)
+        self.containerLayout.addWidget(self.navBar.navPanel, 0)
+        self.containerLayout.addWidget(self.someVar.createTimeTableWin, 1)
         self.containerLayout.setContentsMargins(0, 0, 0, 0)
         self.containerLayout.setSpacing(0)
         self.container.setLayout(self.containerLayout)

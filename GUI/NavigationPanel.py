@@ -6,13 +6,14 @@ class NavigationPanel:
 
         # navigation panel
         self.navPanel = QWidget(base)
+        self.navPanel.setFixedWidth(175)
 
         # navigation panel layout
         self.navLayout = QVBoxLayout(self.navPanel)
 
         # for Time-Table List
         self.timeTableList = QListWidget(self.navPanel)
-        self.timeTableList.setFixedWidth(200)
+        # self.timeTableList.setFixedWidth(200)
 
         # List items
         self.timeTableList.insertItem(0, 'Creation')
