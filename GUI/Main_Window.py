@@ -34,15 +34,25 @@ class MainWindow(QMainWindow):
         self.leftBar = LeftModulePanel(self.container)
         self.leftBar.timeTableButton.clicked.connect(self.toggle_nav)
 
-        # right sided dynamic widgets
-        self.someVar = TimeTableWindow(self.container)
-
         self.navBar = NavigationPanel(self.container)
+        self.navBar.timeTableList.itemClicked.connect(self.show_widgets)
+
+        # right sided dynamic widgets
+        self.blankArea = QWidget(self.container)
+        # self.blankArea.setStyleSheet('border: 1px solid green')
+
+        # layout for widgets under blank area
+        self.innerLayout = QHBoxLayout(self.blankArea)
+        self.createTTWin = TimeTableWindow(self.blankArea)
+        self.createTTWin.createTimeTableWindow.hide()
+        self.innerLayout.addWidget(self.createTTWin.createTimeTableWindow)
+        self.innerLayout.setContentsMargins(0, 0, 0, 0)
+        self.blankArea.setLayout(self.innerLayout)
 
         # stacking all widgets on the main widget (ie container)
         self.containerLayout.addWidget(self.leftBar.modulePanel, 0)
         self.containerLayout.addWidget(self.navBar.navPanel, 0)
-        self.containerLayout.addWidget(self.someVar.createTimeTableWin, 1)
+        self.containerLayout.addWidget(self.blankArea, 1)
         self.containerLayout.setContentsMargins(0, 0, 0, 0)
         self.containerLayout.setSpacing(0)
         self.container.setLayout(self.containerLayout)
@@ -54,6 +64,9 @@ class MainWindow(QMainWindow):
             self.navBar.navPanel.hide()
         else:
             self.navBar.navPanel.show()
+
+    def show_widgets(self):
+        self.createTTWin.createTimeTableWindow.show()
 
 
 def main():
