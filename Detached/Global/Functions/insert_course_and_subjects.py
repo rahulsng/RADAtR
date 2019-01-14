@@ -55,4 +55,5 @@ def insert_all():
 
 # Function Called For Testing
 
+insert_all()
 update_subject("MCA", 5, "Elective Paper-3", "Parallel Computing")
