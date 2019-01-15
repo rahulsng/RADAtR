@@ -2,12 +2,12 @@ import json
 from pymongo import MongoClient
 from Detached.Global.Variables.varDB import *
 
-"""This function should be called for creating a subject list for a new course."""
 
-client = MongoClient(localhost)
-db = client[database]
+client = MongoClient(localhost)         # connecting to server
+db = client[database]                   # choosing the desired DB on the server
 
 
+# This function should be called for creating a subject list for a new course.
 def insert_course_and_subjects():
     course_name = input("Type the course name")
     total_semesters = int(input("Provide total semesters"))
