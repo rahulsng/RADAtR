@@ -40,8 +40,8 @@ class AddingFunctionality(QWidget):
 
         # DEPARTMENT
 
-        nameField = QLabel("SUBJECT", self)
-        nameField.move(70, 110)
+        subField = QLabel("SUBJECT", self)
+        subField.move(70, 110)
         teacher_comboboxes = []
         self.department = ["DCS", "Msc.-IT", "HINDI", "MATHS", "BA"]
         self.teacher_options = QComboBox(self)
