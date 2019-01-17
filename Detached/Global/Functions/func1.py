@@ -16,3 +16,17 @@ my_list = [class_name() for i in range(20)]
 
 for item in my_list:
     print(id(item), type(item))
+
+
+
+
+import pymongo
+from pymongo import MongoClient
+client = MongoClient()
+client = MongoClient('mongodb://localhost:27017')
+db = client.database
+collection = db.Teacher
+
+def Course(ref, course):
+    db.collection.update({'ref': ref},{'$push' :{'tags': course}})
+
