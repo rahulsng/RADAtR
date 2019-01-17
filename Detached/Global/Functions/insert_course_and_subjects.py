@@ -1,10 +1,5 @@
 import json
-from pymongo import MongoClient
-from Detached.Global.Variables.varDB import *
-
-
-client = MongoClient(localhost)         # connecting to server
-db = client[database]                   # choosing the desired DB on the server
+from Detached.Global.Configurations.ConnectionEstablishment import *
 
 
 # This function should be called for creating a subject list for a new course.
