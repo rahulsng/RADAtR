@@ -1,4 +1,5 @@
 import sys
+from Detached.Classes.Teacher import *
 from PyQt5.QtWidgets import *
 
 
@@ -18,13 +19,13 @@ class AddingFunctionality(QWidget):
                                       "font-size: 10pt")
         add = QPushButton("ADD",self)
         add.move(200,350)
-        # add.clicked.connect()
+        add.clicked.connect(self.addt)
 
         # namefield
 
-        self.nameField = QLabel("NAME",self)
-        self.nameField.move(70,70)
-        self.nameField = QTextEdit(self)
+        self.nameLabel = QLabel("NAME",self)
+        self.nameLabel.move(70,70)
+        self.nameField = QLineEdit(self)
         self.nameField.move(250,60)
         self.nameField.setFixedWidth(200)
         self.nameField.setFixedHeight(30)
@@ -32,7 +33,6 @@ class AddingFunctionality(QWidget):
         # DEPARTMENT
         subField = QLabel("DEPARTMENT", self)
         subField.move(70, 110)
-        teacher_comboboxes = []
         self.department = ["DCS", "Msc.-IT", "HINDI", "MATHS", "BA"]
         self.teacher_options = QComboBox(self)
         self.teacher_options.addItems(self.department)
@@ -42,7 +42,7 @@ class AddingFunctionality(QWidget):
         # uid
         uidField = QLabel("UID", self)
         uidField.move(70, 150)
-        self.TextuidField = QTextEdit(self)
+        self.TextuidField = QLineEdit(self)
         self.TextuidField.move(250, 150)
         self.TextuidField.setFixedWidth(200)
         self.TextuidField.setFixedHeight(30)
@@ -59,7 +59,7 @@ class AddingFunctionality(QWidget):
         # maximum lectures
         maxLectures = QLabel("MAXIMUM LECTURES", self)
         maxLectures.move(70, 230)
-        self.TextmaxLectures = QTextEdit(self)
+        self.TextmaxLectures = QLineEdit(self)
         self.TextmaxLectures.move(250, 230)
         self.TextmaxLectures.setFixedWidth(200)
         self.TextmaxLectures.setFixedHeight(30)
@@ -67,10 +67,29 @@ class AddingFunctionality(QWidget):
         # min lectures
         minLectures = QLabel("MINIMUM LECTURES", self)
         minLectures.move(70, 270)
-        self.TextminLectures = QTextEdit(self)
+        self.TextminLectures = QLineEdit(self)
         self.TextminLectures.move(250, 270)
         self.TextminLectures.setFixedWidth(200)
         self.TextminLectures.setFixedHeight(30)
+
+    def addt(self):
+        name = self.nameField.text()
+        uid = self.TextuidField.text()
+        department = self.teacher_options.currentText()
+        designation = self.teacher_designation.currentIndex() + 1
+        min_lect = self.TextminLectures.text()
+        max_lect = self.TextmaxLectures.text()
+
+        teacher = Teacher(name, department, designation, None, uid, max_lect, min_lect)
+        teacher.add_teacher()
+
+        self.nameField.clear()
+        self.TextuidField.clear()
+        self.teacher_options.setCurrentIndex(0)
+        self.teacher_designation.setCurrentIndex(0)
+        self.TextuidField.clear()
+        self.TextminLectures.clear()
+        self.TextmaxLectures.clear()
 
 
 def main():
